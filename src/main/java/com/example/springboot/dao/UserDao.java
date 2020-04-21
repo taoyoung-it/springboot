@@ -2,6 +2,8 @@ package com.example.springboot.dao;
 
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * Class : UserDao
  * Company : Patsnap
@@ -11,5 +13,8 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface UserDao {
-    public String UserInfo(String id);
+    String UserInfo(String id);
+    List<String>  SexInfo(String id);
+    List<String> BirthInfo(String id);
+
 }
