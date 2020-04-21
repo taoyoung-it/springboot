@@ -10,12 +10,9 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -59,19 +56,16 @@ public class jdbcController {
         String id = jsonObject.get("id").toString();
         return userService.UserInfo(id);
     }
-//        String id = jsonObject.get("id").toString();
-//        String sql = "select * from person_information where id =" + id;
-//        List<Map<String, Object>> userList = jdbcTemplate.queryForList(sql);
-//        List<User> user = new ArrayList<User>();
-//        User userList1 = new User();
-//        for (int i = 0; i < userList.size(); i++) {
-//
-//            userList1.setId(String.valueOf(userList.get(i).get("id")));
-//            userList1.setIdcard(String.valueOf(userList.get(i).get("idcard")));
-//            userList1.setName(String.valueOf(userList.get(i).get("name")));
-//            user.add(userList1);
-//        }
-//        return String.valueOf("id:" + userList1.getId() + "," + "idcard:" + userList1.getIdcard() + "," + "name:" + userList1.getName());
-//
-//    }
+    @ResponseBody
+    @RequestMapping("/sex")
+    public List<String> getUserSexJson(@RequestBody JSONObject jsonObject) {
+        String id = jsonObject.get("id").toString();
+        return userService.SexInfo(id);
+    }
+    @ResponseBody
+    @RequestMapping("/birth")
+    public List<String> getUserBirthJson(@RequestBody JSONObject jsonObject) {
+        String id = jsonObject.get("id").toString();
+        return userService.BirthInfo(id);
+    }
 }

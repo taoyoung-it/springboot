@@ -2,8 +2,8 @@ package com.example.springboot.service;
 
 import com.alibaba.fastjson.JSON;
 import com.example.springboot.dao.UserDao;
+import com.example.springboot.entity.Sex;
 import com.example.springboot.entity.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
@@ -34,6 +34,40 @@ public class UserService implements UserDao {
             userList1.setName(String.valueOf(userList.get(i).get("name")));
         }
         return JSON.toJSONString(userList1);
+    }
+    @Override
+    public List<String>  SexInfo(String id){
+        List<String> sexList=new ArrayList<String>();
+        ;
+
+        String sql="select * from person_information where id ="+id;
+        List<Map<String, Object>> userList=jdbcTemplate.queryForList(sql);
+        for (int i=0;i<userList.size();i++){
+            String sex ="";
+            String idCard=String.valueOf(userList.get(i).get("idcard"));
+            int sexCode=Integer.valueOf(idCard.substring(15,16));
+            int index=sexCode%2;
+            sex=Sex.getSex(index);
+            sexList.add(sex);
+
+        }
+        return sexList;
+    }
+    @Override
+    public List<String> BirthInfo(String id){
+        List<String> brithList=new ArrayList<String>();
+        String sql="select * from person_information where id ="+id;
+        List<Map<String, Object>> userList=jdbcTemplate.queryForList(sql);
+        for (int i=0;i<userList.size();i++){
+            String birthday = "";
+            String idCard=String.valueOf(userList.get(i).get("idcard"));
+            String year=idCard.substring(6,10);
+            String month=idCard.substring(10,12);
+            String day=idCard.substring(12,14);
+            birthday=year+"-"+month+"-"+day;
+            brithList.add(birthday);
+        }
+        return brithList;
     }
 
 
